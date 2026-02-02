@@ -142,7 +142,7 @@ print([v["voice_id"] for v in voices])  # Print available voice IDs
 | volume | 0 ~ 200 |
 | audio_pitch | -12 ~ +12 |
 | audio_tempo | 0.5 ~ 2.0 |
-| text | 1 ~ 5,000 characters |
+| text | 1 ~ 2,000 characters |
 
 ### Example Fix
 ```python
