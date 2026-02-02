@@ -1,0 +1,36 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "typecast-skills",
+  "version": "1.0.0",
+  "metadata": {
+    "description": "Typecast TTS API integration skills and tools for Claude Code. Includes API expert agent, code samples, and troubleshooting guides."
+  },
+  "owner": {
+    "name": "Typecast",
+    "email": "help@typecast.ai"
+  },
+  "plugins": [
+    {
+      "name": "typecast-api-expert",
+      "description": "Typecast TTS API expert agent. Provides API key setup, code samples (Python, JavaScript, cURL), error troubleshooting, and plan comparison. Use for 'Typecast API', 'TTS integration', 'text-to-speech API' questions.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Typecast",
+        "email": "help@typecast.ai"
+      },
+      "source": "./typecast-api-expert",
+      "category": "development",
+      "keywords": [
+        "typecast",
+        "tts",
+        "text-to-speech",
+        "voice",
+        "api",
+        "neosapience"
+      ],
+      "homepage": "https://typecast.ai/developers/api",
+      "repository": "https://github.com/neosapience/typecast-skills",
+      "license": "MIT"
+    }
+  ]
+}
