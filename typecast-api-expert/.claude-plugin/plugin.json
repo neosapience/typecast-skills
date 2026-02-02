@@ -7,7 +7,7 @@
     "email": "help@typecast.ai"
   },
   "homepage": "https://typecast.ai/developers/api",
-  "repository": "https://github.com/neosapience/typecast-skills",
+  "repository": "https://github.com/neosapience/skills",
   "license": "MIT",
   "keywords": [
     "typecast",

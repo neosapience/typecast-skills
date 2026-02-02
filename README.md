@@ -24,12 +24,12 @@ This marketplace provides Claude Code plugins for seamless integration with [Typ
 
 ### Why Typecast?
 
-| Feature | Description |
-|---------|-------------|
-| **Emotion AI** | 7 emotion presets + Smart Mode for context-aware expression |
-| **500+ Voices** | Unique character voices across ages, genders, and styles |
+| Feature          | Description                                                 |
+| ---------------- | ----------------------------------------------------------- |
+| **Emotion AI**   | 7 emotion presets + Smart Mode for context-aware expression |
+| **500+ Voices**  | Unique character voices across ages, genders, and styles    |
 | **37 Languages** | Global language support including Korean, English, Japanese |
-| **Low Latency** | Fast voice generation suitable for real-time applications |
+| **Low Latency**  | Fast voice generation suitable for real-time applications   |
 
 ---
 
@@ -39,7 +39,7 @@ This marketplace provides Claude Code plugins for seamless integration with [Typ
 
 ```bash
 # 1. Add marketplace
-/plugin marketplace add neosapience/typecast-skills
+/plugin marketplace add neosapience/skills
 
 # 2. Install plugin
 /plugin install typecast-api-expert@typecast-skills
@@ -49,10 +49,10 @@ This marketplace provides Claude Code plugins for seamless integration with [Typ
 
 Copy the skill folder to your preferred location:
 
-| Scope | Path |
-|-------|------|
+| Scope    | Path                |
+| -------- | ------------------- |
 | Personal | `~/.claude/skills/` |
-| Project | `.cursor/skills/` |
+| Project  | `.cursor/skills/`   |
 
 ---
 
@@ -91,10 +91,10 @@ Copy the skill folder to your preferred location:
 
 ### Supported Models
 
-| Model | Emotions | Smart Mode | Languages |
-|-------|----------|------------|-----------|
-| ssfm-v21 | 4 presets | ❌ | 30 |
-| ssfm-v30 | 7 presets | ✅ | 37 |
+| Model    | Emotions  | Smart Mode | Languages |
+| -------- | --------- | ---------- | --------- |
+| ssfm-v21 | 4 presets | ❌         | 30        |
+| ssfm-v30 | 7 presets | ✅         | 37        |
 
 ### Emotion Presets (ssfm-v30)
 
@@ -132,12 +132,12 @@ Keep your plugins up to date:
 
 ## Documentation
 
-| Resource | Link |
-|----------|------|
-| Official Docs | [typecast.ai/docs](https://typecast.ai/docs/overview) |
-| API Reference | [typecast.ai/docs/api-reference](https://typecast.ai/docs/api-reference) |
-| Python SDK | [github.com/neosapience/typecast-python](https://github.com/neosapience/typecast-python) |
-| JavaScript SDK | [github.com/neosapience/typecast-js](https://github.com/neosapience/typecast-js) |
+| Resource       | Link                                                                                     |
+| -------------- | ---------------------------------------------------------------------------------------- |
+| Official Docs  | [typecast.ai/docs](https://typecast.ai/docs/overview)                                    |
+| API Reference  | [typecast.ai/docs/api-reference](https://typecast.ai/docs/api-reference)                 |
+| Python SDK     | [github.com/neosapience/typecast-python](https://github.com/neosapience/typecast-python) |
+| JavaScript SDK | [github.com/neosapience/typecast-js](https://github.com/neosapience/typecast-js)         |
 
 ---
 
@@ -155,11 +155,11 @@ Contributions are welcome! To add new skills or improve existing ones:
 
 ## Support
 
-| Channel | Link |
-|---------|------|
-| Discord | [discord.gg/fhDDUbBKap](https://discord.gg/fhDDUbBKap) |
-| Intercom | [typecast.ai](https://typecast.ai) (bottom right) |
-| Email | sales@neosapience.com |
+| Channel  | Link                                                   |
+| -------- | ------------------------------------------------------ |
+| Discord  | [discord.gg/fhDDUbBKap](https://discord.gg/fhDDUbBKap) |
+| Intercom | [typecast.ai](https://typecast.ai) (bottom right)      |
+| Email    | sales@neosapience.com                                  |
 
 ---
 
