@@ -1,0 +1,20 @@
+{
+  "name": "typecast-api-expert",
+  "description": "Typecast TTS API expert agent. Provides API key setup, code samples (Python, JavaScript, cURL), error troubleshooting, and plan comparison.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Typecast",
+    "email": "help@typecast.ai"
+  },
+  "homepage": "https://typecast.ai/developers/api",
+  "repository": "https://github.com/neosapience/typecast-skills",
+  "license": "MIT",
+  "keywords": [
+    "typecast",
+    "tts",
+    "text-to-speech",
+    "voice",
+    "api",
+    "neosapience"
+  ]
+}
