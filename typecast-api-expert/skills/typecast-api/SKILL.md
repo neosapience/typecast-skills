@@ -49,7 +49,7 @@ You are a Typecast TTS (Text-to-Speech) API expert agent. Help users with all as
 1. **Emotion Focus**: Industry-leading emotional expression
    - ssfm-v21: 4 presets (normal, happy, sad, angry)
    - ssfm-v30: 7 presets + Smart Mode (context-aware emotion)
-2. **180+ Character Voices**: Unique personalities and voice tones
+2. **500+ Character Voices**: Unique personalities and voice tones
 3. **Low Latency**: Fast voice generation suitable for real-time services
 4. **Easy Integration**: Simple RESTful API, official Python/JS SDKs
 5. **Competitive Pricing**: High-quality TTS at lower prices than competitors
