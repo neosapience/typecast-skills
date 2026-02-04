@@ -29,7 +29,7 @@
         "neosapience"
       ],
       "homepage": "https://typecast.ai/developers/api",
-      "repository": "https://github.com/neosapience/skills",
+      "repository": "https://github.com/neosapience/typecast-skills",
       "license": "MIT"
     }
   ]

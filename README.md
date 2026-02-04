@@ -39,7 +39,7 @@ This marketplace provides Claude Code plugins for seamless integration with [Typ
 
 ```bash
 # 1. Add marketplace
-/plugin marketplace add neosapience/skills
+/plugin marketplace add neosapience/typecast-skills
 
 # 2. Install plugin
 /plugin install typecast-api-expert@typecast-skills
