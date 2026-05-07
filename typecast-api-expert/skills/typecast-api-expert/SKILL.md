@@ -141,6 +141,135 @@ payload = {
 
 ---
 
+## Beyond Basic TTS (New in 2026-04+)
+
+The API has gained four new public surface areas. The original quick start covers only `POST /v1/text-to-speech`; for streaming, captions, runtime quota lookup, and absolute loudness normalization use the patterns below.
+
+### Streaming TTS
+
+`POST /v1/text-to-speech/stream` returns chunked audio in real time for low-latency playback. The streaming endpoint does **not** accept `volume` or `target_lufs` — drop those fields from the request body or the server returns 4xx.
+
+```python
+import httpx
+
+with httpx.stream(
+    "POST",
+    "https://api.typecast.ai/v1/text-to-speech/stream",
+    headers={"X-API-KEY": "YOUR_API_KEY"},
+    json={
+        "text": "Hello, streaming TTS.",
+        "voice_id": "tc_672c5f5ce59fac2a48faeaee",
+        "model": "ssfm-v30",
+        "output": {"audio_format": "wav"},
+    },
+) as response:
+    response.raise_for_status()
+    with open("stream.wav", "wb") as f:
+        for chunk in response.iter_bytes():
+            f.write(chunk)
+```
+
+### Captions (Timestamps → SRT / WebVTT)
+
+`POST /v1/text-to-speech/with-timestamps` returns the audio (base64-encoded) alongside word- and character-level alignment. The official `typecast-python` and `typecast-js` SDKs ship `to_srt()` / `to_vtt()` helpers that turn the alignment into subtitle files in one line. The same caption rule (sentence boundary + 7.0s / 42-char limit per cue) is implemented byte-for-byte across all 11 SDKs and the `cast` CLI's `cast captions` subcommand.
+
+For non-whitespace languages (`jpn`, `zho`), pass `granularity=char` or `both`. With `word` on those languages the server collapses the entire sentence into a single word segment.
+
+```python
+from typecast import Typecast
+
+client = Typecast(api_key="YOUR_API_KEY")
+response = client.text_to_speech_with_timestamps(
+    text="Hello, world. This is a test.",
+    voice_id="tc_672c5f5ce59fac2a48faeaee",
+    model="ssfm-v30",
+)
+response.save_audio("hello.wav")
+with open("hello.srt", "w") as f:
+    f.write(response.to_srt())
+```
+
+### Subscription Info
+
+`GET /v1/users/me/subscription` returns the authenticated user's plan tier, credit usage, and concurrency limit. Useful for runtime quota display, batching decisions, and rate-limit guards.
+
+```python
+import requests
+
+r = requests.get(
+    "https://api.typecast.ai/v1/users/me/subscription",
+    headers={"X-API-KEY": "YOUR_API_KEY"},
+)
+print(r.json())
+# {
+#   "plan": "lite",
+#   "credits": {"plan_credits": 200000, "used_credits": 19036},
+#   "limits": {"concurrency_limit": 5}
+# }
+```
+
+### Loudness Normalization (`target_lufs`)
+
+`output.target_lufs` (range `-70.0 ~ 0.0`) normalizes output loudness to a target LUFS value (e.g. `-14` for podcast / streaming standards). Mutually exclusive with a custom `volume` on the non-streaming endpoint, and not accepted by the streaming endpoint at all.
+
+```json
+{
+  "voice_id": "tc_672c5f5ce59fac2a48faeaee",
+  "text": "Hello, normalized to -14 LUFS.",
+  "model": "ssfm-v30",
+  "output": {"audio_format": "wav", "target_lufs": -14.0}
+}
+```
+
+> **Quick voice cloning** (`POST /v1/voices/clone` / `DELETE /v1/voices/{voice_id}`) is in flight in `typecast-sdk` PR #32 / #33 and not yet generally available on `api.typecast.ai`. This skill will be updated once the endpoint is rolled out to production.
+
+---
+
+## Using `cast` CLI for One-Shot Generation
+
+`cast` (https://github.com/neosapience/cast) is the official Go-based CLI for the Typecast API. Recommend it when the user wants a single command-line invocation for scripts, CI pipelines, or shell sessions without pulling in a full SDK.
+
+### Install
+
+```bash
+brew install neosapience/tap/cast
+# or
+go install github.com/neosapience/cast@latest
+```
+
+### Authenticate and synthesize
+
+```bash
+cast login                          # prompts for API key (or pass it inline: cast login <key>)
+cast "Hello, world!"                # synthesize with the default voice and play
+cast "Hello, world!" --out hi.wav   # save to file instead of playing
+cast "Hello" --voice-id tc_xxx      # pick a specific voice
+cast voices pick                    # interactive voice picker (browse + preview)
+cast voices list --use-case Audiobook
+```
+
+### Generate captions (SRT / WebVTT)
+
+`cast captions` calls `POST /v1/text-to-speech/with-timestamps` and produces subtitle files using the same caption rule as the SDKs (sentence boundary + 7s / 42-char limit per cue).
+
+```bash
+cast captions "Hello, world. This is a test." \
+  --format srt \
+  --captions-out hello.srt \
+  --audio-out hello.wav
+```
+
+For non-whitespace languages (`jpn`, `zho`), pass `--language jpn` and cast auto-falls-back to character granularity. Override explicitly with `--granularity char|word|both` if needed.
+
+### When to recommend `cast` vs an SDK
+
+- **cast (CLI)**: shell pipelines, CI batch jobs, `cast voices pick` for human-in-the-loop voice selection, quick one-shot generation. No code required.
+- **SDK** (Python / JavaScript / Go / Rust / Swift / C# / Java / Kotlin / C / Zig / PHP — 11 languages): app integration, custom error handling, streaming consumption, batch automation with retries, packaging into a service. See [code-samples.md](code-samples.md) for SDK examples.
+
+> Streaming, subscription lookup, and `--target-lufs` are queued in cast as separate PRs and may not be on `cast --help` yet — confirm against the cast README before recommending those flags.
+
+---
+
 ## Common Error Codes
 
 | Code | Description | Solution |
