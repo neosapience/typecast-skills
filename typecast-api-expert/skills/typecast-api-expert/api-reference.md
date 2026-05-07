@@ -141,6 +141,91 @@ Returns detailed information about a specific voice.
 
 ---
 
+### 5. Streaming Text-to-Speech
+
+`POST /v1/text-to-speech/stream`
+
+Returns chunked audio in real time for low-latency playback.
+
+**Required parameters**: same as `POST /v1/text-to-speech` (`voice_id`, `text`, `model`).
+
+**Output object differences**:
+
+| Field | Allowed on stream? |
+|-------|--------------------|
+| `audio_pitch` | ✅ |
+| `audio_tempo` | ✅ |
+| `audio_format` | ✅ |
+| `volume` | ❌ rejected — drop the field |
+| `target_lufs` | ❌ rejected — drop the field |
+
+**Response**: `Transfer-Encoding: chunked` audio bytes (no JSON wrapper).
+
+---
+
+### 6. Text-to-Speech with Timestamps
+
+`POST /v1/text-to-speech/with-timestamps`
+
+Returns the audio (base64-encoded) plus word- and character-level alignment so callers can generate SRT or WebVTT subtitles.
+
+**Optional query parameter**:
+
+| Parameter | Values | Default | Notes |
+|-----------|--------|---------|-------|
+| `granularity` | `word`, `char`, `both` | `word` | For non-whitespace languages (`jpn`, `zho`), pass `char` or `both` — the server collapses an entire sentence into one word segment otherwise. |
+
+**Response shape**:
+
+```json
+{
+  "audio": "<base64 wav or mp3 bytes>",
+  "audio_format": "wav",
+  "audio_duration": 1.42,
+  "words": [
+    {"text": "Hello.", "start": 0.0, "end": 0.5}
+  ],
+  "characters": [
+    {"text": "H", "start": 0.0, "end": 0.06}
+  ]
+}
+```
+
+The official typecast-python and typecast-js SDKs ship `to_srt()` / `to_vtt()` helpers that turn the alignment into subtitle files using a shared rule (sentence boundary + 7.0s / 42-char limit per cue). The same rule is implemented byte-for-byte across all 11 SDKs and the `cast captions` CLI subcommand.
+
+---
+
+### 7. Get My Subscription
+
+`GET /v1/users/me/subscription`
+
+Returns the authenticated user's plan tier, credit usage, and concurrency limit. Useful for runtime quota display, batching decisions, and rate-limit guards.
+
+**Response shape**:
+
+```json
+{
+  "plan": "lite",
+  "credits": {
+    "plan_credits": 200000,
+    "used_credits": 19036
+  },
+  "limits": {
+    "concurrency_limit": 5
+  }
+}
+```
+
+`plan` is one of `free`, `lite`, `plus`, `custom`.
+
+---
+
+### Output object additions (non-streaming endpoints)
+
+`output.target_lufs` (optional) — absolute loudness normalization target in LUFS, range `-70.0 ~ 0.0` (e.g. `-14.0` for podcast / streaming standards). Mutually exclusive with a custom `volume` value on the non-streaming `POST /v1/text-to-speech` endpoint, and not accepted by the streaming endpoint at all.
+
+---
+
 ## API Characteristics
 
 - **Synchronous**: The API returns audio data directly in the response
