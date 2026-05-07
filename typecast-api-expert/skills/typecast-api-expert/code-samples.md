@@ -358,6 +358,160 @@ output = {
 
 ---
 
+## Beyond Basic TTS — Streaming / Captions / Subscription / target_lufs
+
+### Streaming TTS (Python httpx)
+
+```python
+import httpx
+
+with httpx.stream(
+    "POST",
+    "https://api.typecast.ai/v1/text-to-speech/stream",
+    headers={"X-API-KEY": "YOUR_API_KEY"},
+    json={
+        "text": "Hello, streaming TTS.",
+        "voice_id": "tc_672c5f5ce59fac2a48faeaee",
+        "model": "ssfm-v30",
+        "output": {"audio_format": "wav"},
+    },
+) as response:
+    response.raise_for_status()
+    with open("stream.wav", "wb") as f:
+        for chunk in response.iter_bytes():
+            f.write(chunk)
+```
+
+> The streaming endpoint rejects `volume` and `target_lufs` — drop those fields.
+
+### Streaming TTS (cURL)
+
+```bash
+curl -X POST 'https://api.typecast.ai/v1/text-to-speech/stream' \
+  -H "X-API-KEY: $TYPECAST_API_KEY" \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "text": "Hello, streaming TTS.",
+    "voice_id": "tc_672c5f5ce59fac2a48faeaee",
+    "model": "ssfm-v30",
+    "output": {"audio_format": "wav"}
+  }' \
+  --output stream.wav
+```
+
+### Captions (Python SDK with `to_srt()` / `to_vtt()` helpers)
+
+```python
+from typecast import Typecast
+
+client = Typecast(api_key="YOUR_API_KEY")
+response = client.text_to_speech_with_timestamps(
+    text="Hello, world. This is a test.",
+    voice_id="tc_672c5f5ce59fac2a48faeaee",
+    model="ssfm-v30",
+)
+response.save_audio("hello.wav")
+with open("hello.srt", "w") as f:
+    f.write(response.to_srt())
+with open("hello.vtt", "w") as f:
+    f.write(response.to_vtt())
+```
+
+### Captions (cURL — raw alignment)
+
+```bash
+curl -X POST 'https://api.typecast.ai/v1/text-to-speech/with-timestamps?granularity=word' \
+  -H "X-API-KEY: $TYPECAST_API_KEY" \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "text": "Hello, world. This is a test.",
+    "voice_id": "tc_672c5f5ce59fac2a48faeaee",
+    "model": "ssfm-v30"
+  }' | jq '{words: .words, characters: .characters}'
+```
+
+> For non-whitespace languages (`jpn`, `zho`), pass `granularity=char` or `both` — the server collapses an entire sentence into one word segment otherwise.
+
+### Subscription Info (Python)
+
+```python
+import requests
+
+r = requests.get(
+    "https://api.typecast.ai/v1/users/me/subscription",
+    headers={"X-API-KEY": "YOUR_API_KEY"},
+)
+print(r.json())
+# {
+#   "plan": "lite",
+#   "credits": {"plan_credits": 200000, "used_credits": 19036},
+#   "limits": {"concurrency_limit": 5}
+# }
+```
+
+### Subscription Info (cURL)
+
+```bash
+curl 'https://api.typecast.ai/v1/users/me/subscription' \
+  -H "X-API-KEY: $TYPECAST_API_KEY" | jq
+```
+
+### Loudness Normalization (`target_lufs`)
+
+```python
+payload = {
+    "text": "Hello, normalized to -14 LUFS.",
+    "voice_id": "tc_672c5f5ce59fac2a48faeaee",
+    "model": "ssfm-v30",
+    "output": {"audio_format": "wav", "target_lufs": -14.0},
+}
+# Mutually exclusive with a custom volume on the non-streaming endpoint — pick one.
+```
+
+---
+
+## `cast` CLI Examples
+
+### Install + login
+
+```bash
+brew install neosapience/tap/cast
+# or
+go install github.com/neosapience/cast@latest
+
+cast login                  # prompts for API key (or pass it inline)
+```
+
+### One-shot synthesis and voice picker
+
+```bash
+cast "Hello, world!"                          # play with default voice
+cast "Hello, world!" --out hi.wav             # save to file
+cast "Hello!" --voice-id tc_672c5f5ce59fac2a48faeaee --emotion preset --emotion-preset happy
+cast voices pick                              # interactive voice picker
+cast voices list --use-case Audiobook         # filter by use case
+cast voices random --gender female --model ssfm-v30
+```
+
+### Captions (SRT / WebVTT)
+
+```bash
+cast captions "Hello, world. This is a test." \
+  --format srt \
+  --captions-out hello.srt \
+  --audio-out hello.wav
+
+# Non-whitespace languages — auto-fallback to character granularity
+cast captions "こんにちは。世界。" \
+  --language jpn \
+  --format vtt \
+  --captions-out hello.vtt
+```
+
+> Streaming, subscription, and `--target-lufs` are queued in cast as separate PRs; check `cast --help` against the latest release before recommending those flags.
+
+---
+
 ## Use Cases
 
 ### E-learning Content
