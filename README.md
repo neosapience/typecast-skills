@@ -45,6 +45,14 @@ This marketplace provides Claude Code plugins for seamless integration with [Typ
 /plugin install typecast-api-expert@typecast-skills
 ```
 
+### Via skills.sh
+
+For agents that use the [skills.sh](https://skills.sh) directory (Claude Code, Cursor, GitHub Copilot, and others):
+
+```bash
+npx skills add neosapience/typecast-skills
+```
+
 ### Manual Installation
 
 Copy the skill folder to your preferred location:
