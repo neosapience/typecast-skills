@@ -222,7 +222,7 @@ Returns the authenticated user's plan tier, credit usage, and concurrency limit.
 
 ### Output object additions (non-streaming endpoints)
 
-`output.target_lufs` (optional) — absolute loudness normalization target in LUFS, range `-70.0 ~ 0.0` (e.g. `-14.0` for podcast / streaming standards). Mutually exclusive with a custom `volume` value on the non-streaming `POST /v1/text-to-speech` endpoint, and not accepted by the streaming endpoint at all.
+`output.target_lufs` (optional) — absolute loudness normalization target in LUFS, range `-70.0 ~ 0.0` (e.g. `-14.0` for podcast / streaming standards). Mutually exclusive with `output.volume` on the non-streaming `POST /v1/text-to-speech` endpoint: any presence of the `volume` field together with `target_lufs` causes the server to return 4xx, regardless of the volume value. Not accepted at all by the streaming endpoint (drop both `volume` and `target_lufs` from streaming requests).
 
 ---
 

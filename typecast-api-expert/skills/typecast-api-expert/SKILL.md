@@ -163,6 +163,7 @@ with httpx.stream(
         "output": {"audio_format": "wav"},
     },
 ) as response:
+    response.raise_for_status()
     with open("stream.wav", "wb") as f:
         for chunk in response.iter_bytes():
             f.write(chunk)

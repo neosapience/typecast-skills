@@ -459,13 +459,27 @@ curl 'https://api.typecast.ai/v1/users/me/subscription' \
 ### Loudness Normalization (`target_lufs`)
 
 ```python
+import os
+import requests
+
+api_key = os.environ.get("TYPECAST_API_KEY", "YOUR_API_KEY")
 payload = {
     "text": "Hello, normalized to -14 LUFS.",
     "voice_id": "tc_672c5f5ce59fac2a48faeaee",
     "model": "ssfm-v30",
     "output": {"audio_format": "wav", "target_lufs": -14.0},
 }
-# Mutually exclusive with a custom volume on the non-streaming endpoint — pick one.
+# Mutually exclusive with `output.volume` on the non-streaming endpoint —
+# do not include both fields in the same request.
+
+response = requests.post(
+    "https://api.typecast.ai/v1/text-to-speech",
+    headers={"X-API-KEY": api_key, "Content-Type": "application/json"},
+    json=payload,
+)
+response.raise_for_status()
+with open("normalized.wav", "wb") as f:
+    f.write(response.content)
 ```
 
 ---
