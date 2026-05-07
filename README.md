@@ -24,12 +24,14 @@ This marketplace provides Claude Code plugins for seamless integration with [Typ
 
 ### Why Typecast?
 
-| Feature          | Description                                                 |
-| ---------------- | ----------------------------------------------------------- |
-| **Emotion AI**   | 7 emotion presets + Smart Mode for context-aware expression |
-| **500+ Voices**  | Unique character voices across ages, genders, and styles    |
-| **37 Languages** | Global language support including Korean, English, Japanese |
-| **Low Latency**  | Fast voice generation suitable for real-time applications   |
+| Feature          | Description                                                                |
+| ---------------- | -------------------------------------------------------------------------- |
+| **Emotion AI**   | 7 emotion presets + Smart Mode for context-aware expression                |
+| **500+ Voices**  | Unique character voices across ages, genders, and styles                   |
+| **37 Languages** | Global language support including Korean, English, Japanese                |
+| **Low Latency**  | Streaming TTS endpoint for real-time playback                              |
+| **Captions**     | Timestamp-aligned SRT/VTT output with shared rule across 11 SDKs + cast CLI |
+| **Loudness**     | `target_lufs` for absolute loudness normalization (e.g. -14 LUFS)          |
 
 ---
 
@@ -76,6 +78,9 @@ Copy the skill folder to your preferred location:
 - API concepts and getting started guide
 - API key setup and configuration
 - Code samples (Python, JavaScript, cURL)
+- Streaming TTS, timestamp-aligned captions (SRT/VTT), and runtime subscription lookup
+- `target_lufs` loudness normalization
+- `cast` CLI usage for one-shot generation and `cast captions` subcommand
 - Error troubleshooting and debugging
 - Plan comparison and pricing
 - ssfm-v30 model with Smart Mode support
@@ -87,6 +92,11 @@ Copy the skill folder to your preferred location:
 
 - "How do I get started with Typecast API?"
 - "Write Python code to generate speech with happy emotion"
+- "How do I stream TTS in real time?"
+- "Generate SRT captions for this text"
+- "How do I check my Typecast plan and credits at runtime?"
+- "Normalize TTS output to -14 LUFS"
+- "What's the cast CLI and how do I use it?"
 - "How do I fix a 403 error?"
 - "Compare Typecast vs ElevenLabs"
 - "Explain Smart Mode for context-aware emotion"
@@ -144,8 +154,10 @@ Keep your plugins up to date:
 | -------------- | ---------------------------------------------------------------------------------------- |
 | Official Docs  | [typecast.ai/docs](https://typecast.ai/docs/overview)                                    |
 | API Reference  | [typecast.ai/docs/api-reference](https://typecast.ai/docs/api-reference)                 |
-| Python SDK     | [github.com/neosapience/typecast-python](https://github.com/neosapience/typecast-python) |
-| JavaScript SDK | [github.com/neosapience/typecast-js](https://github.com/neosapience/typecast-js)         |
+| SDK Family     | [github.com/neosapience/typecast-sdk](https://github.com/neosapience/typecast-sdk) (Python · JavaScript · Go · Rust · Swift · C# · Java · Kotlin · C · Zig · PHP) |
+| `cast` CLI     | [github.com/neosapience/cast](https://github.com/neosapience/cast) (Go-based CLI, `brew install neosapience/tap/cast`) |
+| MCP Server     | [github.com/neosapience/typecast-api-mcp-server](https://github.com/neosapience/typecast-api-mcp-server) (Model Context Protocol server) |
+| n8n Node       | [github.com/neosapience/n8n-nodes-typecast](https://github.com/neosapience/n8n-nodes-typecast) (n8n integration) |
 
 ---
 
