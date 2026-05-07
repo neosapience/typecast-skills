@@ -224,6 +224,51 @@ print(r.json())
 
 ---
 
+## Using `cast` CLI for One-Shot Generation
+
+`cast` (https://github.com/neosapience/cast) is the official Go-based CLI for the Typecast API. Recommend it when the user wants a single command-line invocation for scripts, CI pipelines, or shell sessions without pulling in a full SDK.
+
+### Install
+
+```bash
+brew install neosapience/tap/cast
+# or
+go install github.com/neosapience/cast@latest
+```
+
+### Authenticate and synthesize
+
+```bash
+cast login                          # prompts for API key (or pass it inline: cast login <key>)
+cast "Hello, world!"                # synthesize with the default voice and play
+cast "Hello, world!" --out hi.wav   # save to file instead of playing
+cast "Hello" --voice-id tc_xxx      # pick a specific voice
+cast voices pick                    # interactive voice picker (browse + preview)
+cast voices list --use-case Audiobook
+```
+
+### Generate captions (SRT / WebVTT)
+
+`cast captions` calls `POST /v1/text-to-speech/with-timestamps` and produces subtitle files using the same caption rule as the SDKs (sentence boundary + 7s / 42-char limit per cue).
+
+```bash
+cast captions "Hello, world. This is a test." \
+  --format srt \
+  --captions-out hello.srt \
+  --audio-out hello.wav
+```
+
+For non-whitespace languages (`jpn`, `zho`), pass `--language jpn` and cast auto-falls-back to character granularity. Override explicitly with `--granularity char|word|both` if needed.
+
+### When to recommend `cast` vs an SDK
+
+- **cast (CLI)**: shell pipelines, CI batch jobs, `cast voices pick` for human-in-the-loop voice selection, quick one-shot generation. No code required.
+- **SDK** (Python / JavaScript / Go / Rust / Swift / C# / Java / Kotlin / C / Zig / PHP — 11 languages): app integration, custom error handling, streaming consumption, batch automation with retries, packaging into a service. See [code-samples.md](code-samples.md) for SDK examples.
+
+> Streaming, subscription lookup, and `--target-lufs` are queued in cast as separate PRs and may not be on `cast --help` yet — confirm against the cast README before recommending those flags.
+
+---
+
 ## Common Error Codes
 
 | Code | Description | Solution |
