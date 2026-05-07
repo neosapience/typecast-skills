@@ -141,6 +141,89 @@ payload = {
 
 ---
 
+## Beyond Basic TTS (New in 2026-04+)
+
+The API has gained four new public surface areas. The original quick start covers only `POST /v1/text-to-speech`; for streaming, captions, runtime quota lookup, and absolute loudness normalization use the patterns below.
+
+### Streaming TTS
+
+`POST /v1/text-to-speech/stream` returns chunked audio in real time for low-latency playback. The streaming endpoint does **not** accept `volume` or `target_lufs` — drop those fields from the request body or the server returns 4xx.
+
+```python
+import httpx
+
+with httpx.stream(
+    "POST",
+    "https://api.typecast.ai/v1/text-to-speech/stream",
+    headers={"X-API-KEY": "YOUR_API_KEY"},
+    json={
+        "text": "Hello, streaming TTS.",
+        "voice_id": "tc_672c5f5ce59fac2a48faeaee",
+        "model": "ssfm-v30",
+        "output": {"audio_format": "wav"},
+    },
+) as response:
+    with open("stream.wav", "wb") as f:
+        for chunk in response.iter_bytes():
+            f.write(chunk)
+```
+
+### Captions (Timestamps → SRT / WebVTT)
+
+`POST /v1/text-to-speech/with-timestamps` returns the audio (base64-encoded) alongside word- and character-level alignment. The official `typecast-python` and `typecast-js` SDKs ship `to_srt()` / `to_vtt()` helpers that turn the alignment into subtitle files in one line. The same caption rule (sentence boundary + 7.0s / 42-char limit per cue) is implemented byte-for-byte across all 11 SDKs and the `cast` CLI's `cast captions` subcommand.
+
+For non-whitespace languages (`jpn`, `zho`), pass `granularity=char` or `both`. With `word` on those languages the server collapses the entire sentence into a single word segment.
+
+```python
+from typecast import Typecast
+
+client = Typecast(api_key="YOUR_API_KEY")
+response = client.text_to_speech_with_timestamps(
+    text="Hello, world. This is a test.",
+    voice_id="tc_672c5f5ce59fac2a48faeaee",
+    model="ssfm-v30",
+)
+response.save_audio("hello.wav")
+with open("hello.srt", "w") as f:
+    f.write(response.to_srt())
+```
+
+### Subscription Info
+
+`GET /v1/users/me/subscription` returns the authenticated user's plan tier, credit usage, and concurrency limit. Useful for runtime quota display, batching decisions, and rate-limit guards.
+
+```python
+import requests
+
+r = requests.get(
+    "https://api.typecast.ai/v1/users/me/subscription",
+    headers={"X-API-KEY": "YOUR_API_KEY"},
+)
+print(r.json())
+# {
+#   "plan": "lite",
+#   "credits": {"plan_credits": 200000, "used_credits": 19036},
+#   "limits": {"concurrency_limit": 5}
+# }
+```
+
+### Loudness Normalization (`target_lufs`)
+
+`output.target_lufs` (range `-70.0 ~ 0.0`) normalizes output loudness to a target LUFS value (e.g. `-14` for podcast / streaming standards). Mutually exclusive with a custom `volume` on the non-streaming endpoint, and not accepted by the streaming endpoint at all.
+
+```json
+{
+  "voice_id": "tc_672c5f5ce59fac2a48faeaee",
+  "text": "Hello, normalized to -14 LUFS.",
+  "model": "ssfm-v30",
+  "output": {"audio_format": "wav", "target_lufs": -14.0}
+}
+```
+
+> **Quick voice cloning** (`POST /v1/voices/clone` / `DELETE /v1/voices/{voice_id}`) is in flight in `typecast-sdk` PR #32 / #33 and not yet generally available on `api.typecast.ai`. This skill will be updated once the endpoint is rolled out to production.
+
+---
+
 ## Common Error Codes
 
 | Code | Description | Solution |
