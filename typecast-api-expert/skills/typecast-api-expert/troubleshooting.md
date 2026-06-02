@@ -161,6 +161,39 @@ payload = {
 
 ---
 
+## Quick Voice Cloning Issues
+
+### Clone Voice returns 400 or 422
+
+Check these fields first:
+
+| Field | Valid Value |
+|-------|-------------|
+| `name` | 1-30 characters |
+| `model` | `ssfm-v30` |
+| `file` | WAV or MP3 |
+| File size | 25 MB or smaller |
+
+For direct API calls, send Clone Voice as `multipart/form-data`, not JSON:
+
+```python
+with open("sample.wav", "rb") as audio_file:
+    response = requests.post(
+        "https://api.typecast.ai/v1/voices/clone",
+        headers={"X-API-KEY": api_key},
+        data={"name": "My Cloned Voice", "model": "ssfm-v30"},
+        files={"file": ("sample.wav", audio_file, "audio/wav")},
+    )
+```
+
+### Delete Cloned Voice fails
+
+- Only pass cloned custom voice IDs that start with `uc_`.
+- Do not delete built-in Typecast voice IDs that start with `tc_`.
+- If the voice was already deleted, refresh the user's stored voice ID before retrying.
+
+---
+
 ## Common Issues
 
 ### Issue: Empty audio file returned

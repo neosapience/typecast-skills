@@ -196,6 +196,60 @@ if (response.ok) {
 
 ---
 
+## Quick Voice Cloning (Direct API)
+
+```python
+import requests
+
+api_key = "YOUR_API_KEY"
+
+with open("sample.wav", "rb") as audio_file:
+    clone_response = requests.post(
+        "https://api.typecast.ai/v1/voices/clone",
+        headers={"X-API-KEY": api_key},
+        data={"name": "My Cloned Voice", "model": "ssfm-v30"},
+        files={"file": ("sample.wav", audio_file, "audio/wav")},
+    )
+clone_response.raise_for_status()
+
+cloned_voice = clone_response.json()
+voice_id = cloned_voice.get("voice_id") or cloned_voice["result"]["voice_id"]
+
+speech_response = requests.post(
+    "https://api.typecast.ai/v1/text-to-speech",
+    headers={"X-API-KEY": api_key, "Content-Type": "application/json"},
+    json={
+        "text": "Hello from my cloned voice.",
+        "model": "ssfm-v30",
+        "voice_id": voice_id,
+    },
+)
+speech_response.raise_for_status()
+
+with open("cloned_voice_output.wav", "wb") as f:
+    f.write(speech_response.content)
+
+requests.delete(
+    f"https://api.typecast.ai/v1/voices/{voice_id}",
+    headers={"X-API-KEY": api_key},
+).raise_for_status()
+```
+
+```bash
+curl -X POST "https://api.typecast.ai/v1/voices/clone" \
+     -H "X-API-KEY: YOUR_API_KEY" \
+     -F "name=My Cloned Voice" \
+     -F "model=ssfm-v30" \
+     -F "file=@sample.wav;type=audio/wav"
+
+curl -X DELETE "https://api.typecast.ai/v1/voices/uc_YOUR_CLONED_VOICE_ID" \
+     -H "X-API-KEY: YOUR_API_KEY"
+```
+
+Quick cloning accepts WAV or MP3 samples up to 25 MB. Delete only cloned voice IDs that start with `uc_`.
+
+---
+
 ## cURL
 
 ### Preset Mode

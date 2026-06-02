@@ -142,7 +142,39 @@ Returns detailed information about a specific voice.
 
 ---
 
-### 5. Streaming Text-to-Speech
+### 5. Quick Voice Cloning
+```
+POST /v1/voices/clone
+DELETE /v1/voices/{voice_id}
+```
+
+Quick Voice Cloning creates a custom cloned voice from a WAV or MP3 audio sample.
+Use the returned cloned voice ID with TTS endpoints, then delete it when no longer needed.
+
+#### Clone Voice
+
+**Request:** `multipart/form-data`
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | Yes | Display name for the cloned voice. Must be 1-30 characters. |
+| `model` | string | Yes | Voice cloning model. Use `ssfm-v30` by default. |
+| `file` | binary | Yes | WAV or MP3 audio sample. Maximum size is 25 MB. |
+
+**Response:** JSON containing the cloned voice ID, usually in `voice_id`.
+
+#### Delete Cloned Voice
+
+```http
+DELETE /v1/voices/{voice_id}
+```
+
+- Only delete cloned custom voice IDs that start with `uc_`.
+- Do not pass built-in Typecast voice IDs that start with `tc_`.
+
+---
+
+### 6. Streaming Text-to-Speech
 
 `POST /v1/text-to-speech/stream`
 
