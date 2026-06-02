@@ -32,6 +32,7 @@ This marketplace provides Claude Code plugins for seamless integration with [Typ
 | **Low Latency**  | Streaming TTS endpoint for real-time playback                              |
 | **Captions**     | Timestamp-aligned SRT/VTT output with shared rule across 11 SDKs + cast CLI |
 | **Loudness**     | `target_lufs` for absolute loudness normalization (e.g. -14 LUFS)          |
+| **Quick Cloning** | Create, use, and delete custom cloned voices from WAV/MP3 samples          |
 
 ---
 
@@ -80,6 +81,7 @@ Copy the skill folder to your preferred location:
 - Code samples (Python, JavaScript, cURL)
 - Streaming TTS, timestamp-aligned captions (SRT/VTT), and runtime subscription lookup
 - `target_lufs` loudness normalization
+- Quick Voice Cloning (`POST /v1/voices/clone`, `DELETE /v1/voices/{voice_id}`)
 - `cast` CLI usage for one-shot generation and `cast captions` subcommand
 - Error troubleshooting and debugging
 - Plan comparison and pricing
@@ -94,6 +96,7 @@ Copy the skill folder to your preferred location:
 - "Write Python code to generate speech with happy emotion"
 - "How do I stream TTS in real time?"
 - "Generate SRT captions for this text"
+- "Clone a voice from this WAV file and use it for TTS"
 - "How do I check my Typecast plan and credits at runtime?"
 - "Normalize TTS output to -14 LUFS"
 - "What's the cast CLI and how do I use it?"
@@ -130,6 +133,18 @@ prompt = {
     "previous_text": "I just got the best news!",
     "next_text": "I can't wait to celebrate!"
 }
+```
+
+### Quick Voice Cloning
+
+Create a custom cloned voice from a WAV or MP3 sample, use the returned `uc_...` voice ID for TTS, then delete it when finished.
+
+```bash
+curl -X POST "https://api.typecast.ai/v1/voices/clone" \
+     -H "X-API-KEY: YOUR_API_KEY" \
+     -F "name=My Cloned Voice" \
+     -F "model=ssfm-v30" \
+     -F "file=@sample.wav;type=audio/wav"
 ```
 
 ---

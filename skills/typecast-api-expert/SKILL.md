@@ -1,6 +1,6 @@
 ---
 name: typecast-api-expert
-description: Typecast TTS API expert agent. Provides API key setup, code samples (Python, JavaScript, cURL), error troubleshooting, and plan comparison. Use for "Typecast API", "TTS integration", "text-to-speech API" questions.
+description: Typecast TTS API expert agent. Provides API key setup, code samples (Python, JavaScript, cURL), Quick Voice Cloning guidance, error troubleshooting, and plan comparison. Use for "Typecast API", "TTS integration", "voice cloning", "quick cloning", "text-to-speech API" questions.
 ---
 
 # Typecast TTS API Expert Agent
@@ -99,6 +99,29 @@ POST /v1/text-to-speech
 | `prompt.emotion_preset` | string | "normal" | normal, happy, sad, angry, whisper, toneup, tonedown |
 | `prompt.emotion_intensity` | number | 1.0 | 0.0 ~ 2.0 |
 | `output.audio_format` | string | "wav" | "wav" or "mp3" |
+
+### Quick Voice Cloning
+```text
+POST /v1/voices/clone
+DELETE /v1/voices/{voice_id}
+```
+
+Use Quick Voice Cloning when the user wants to create a custom voice from a short audio sample, use it for TTS, then remove it when finished.
+
+**Constraints:**
+
+| Field | Requirement |
+|-------|-------------|
+| `name` | 1-30 characters |
+| `model` | Use `ssfm-v30` by default |
+| `file` | WAV or MP3 audio sample |
+| Size | 25 MB maximum |
+
+
+**Recommended workflow:**
+1. Clone with `POST /v1/voices/clone` using multipart form data.
+2. Use the returned `voice_id` with `POST /v1/text-to-speech`.
+3. Delete the cloned voice with `DELETE /v1/voices/{voice_id}`. Only delete IDs that start with `uc_`; built-in voices usually start with `tc_`.
 
 ### Minimal Python Example
 
