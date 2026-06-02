@@ -142,7 +142,7 @@ Returns detailed information about a specific voice.
 ---
 
 ### 5. Quick Voice Cloning
-```
+```text
 POST /v1/voices/clone
 DELETE /v1/voices/{voice_id}
 ```

@@ -143,7 +143,7 @@ Returns detailed information about a specific voice.
 ---
 
 ### 5. Quick Voice Cloning
-```
+```text
 POST /v1/voices/clone
 DELETE /v1/voices/{voice_id}
 ```
@@ -196,7 +196,7 @@ Returns chunked audio in real time for low-latency playback.
 
 ---
 
-### 6. Text-to-Speech with Timestamps
+### 7. Text-to-Speech with Timestamps
 
 `POST /v1/text-to-speech/with-timestamps`
 
@@ -228,7 +228,7 @@ The official typecast-python and typecast-js SDKs ship `to_srt()` / `to_vtt()` h
 
 ---
 
-### 7. Get My Subscription
+### 8. Get My Subscription
 
 `GET /v1/users/me/subscription`
 

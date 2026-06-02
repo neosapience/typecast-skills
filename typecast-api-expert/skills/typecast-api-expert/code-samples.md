@@ -213,7 +213,9 @@ with open("sample.wav", "rb") as audio_file:
 clone_response.raise_for_status()
 
 cloned_voice = clone_response.json()
-voice_id = cloned_voice.get("voice_id") or cloned_voice["result"]["voice_id"]
+voice_id = cloned_voice.get("voice_id") or cloned_voice.get("result", {}).get("voice_id")
+if not voice_id:
+    raise ValueError(f"voice_id not found in clone response: {cloned_voice}")
 
 speech_response = requests.post(
     "https://api.typecast.ai/v1/text-to-speech",
@@ -228,6 +230,9 @@ speech_response.raise_for_status()
 
 with open("cloned_voice_output.wav", "wb") as f:
     f.write(speech_response.content)
+
+if not voice_id.startswith("uc_"):
+    raise ValueError(f"Refusing to delete non-cloned voice ID: {voice_id}")
 
 requests.delete(
     f"https://api.typecast.ai/v1/voices/{voice_id}",

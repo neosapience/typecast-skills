@@ -101,7 +101,7 @@ POST /v1/text-to-speech
 | `output.audio_format` | string | "wav" | "wav" or "mp3" |
 
 ### Quick Voice Cloning
-```
+```text
 POST /v1/voices/clone
 DELETE /v1/voices/{voice_id}
 ```
@@ -109,12 +109,14 @@ DELETE /v1/voices/{voice_id}
 Use Quick Voice Cloning when the user wants to create a custom voice from a short audio sample, use it for TTS, then remove it when finished.
 
 **Constraints:**
+
 | Field | Requirement |
 |-------|-------------|
 | `name` | 1-30 characters |
 | `model` | Use `ssfm-v30` by default |
 | `file` | WAV or MP3 audio sample |
 | Size | 25 MB maximum |
+
 
 **Recommended workflow:**
 1. Clone with `POST /v1/voices/clone` using multipart form data.
