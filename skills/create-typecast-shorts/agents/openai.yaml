@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Typecast Shorts"
+  short_description: "Create rights-cleared shorts with Typecast narration"
+  default_prompt: "Use $create-typecast-shorts to turn my local media into a captioned vertical short with Typecast narration."

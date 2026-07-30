@@ -44,8 +44,11 @@ This marketplace provides Claude Code plugins for seamless integration with [Typ
 # 1. Add marketplace
 /plugin marketplace add neosapience/typecast-skills
 
-# 2. Install plugin
+# 2. Install the API expert
 /plugin install typecast-api-expert@typecast-skills
+
+# Or install the shorts creator
+/plugin install create-typecast-shorts@typecast-skills
 ```
 
 ### Via skills.sh
@@ -103,6 +106,30 @@ Copy the skill folder to your preferred location:
 - "How do I fix a 403 error?"
 - "Compare Typecast vs ElevenLabs"
 - "Explain Smart Mode for context-aware emotion"
+
+</details>
+
+### create-typecast-shorts
+
+> Create a captioned vertical short from one local video or image you are authorized to use.
+
+<details>
+<summary><b>Features</b></summary>
+
+- Typecast narration and timestamp-aligned SRT captions
+- 1080×1920 preview and final rendering with ffmpeg
+- Video or still-image backgrounds
+- Explicit media-rights, API-key, and publish approval gates
+- No third-party media downloading, watermark removal, or automatic publishing
+
+</details>
+
+<details>
+<summary><b>Example Prompts</b></summary>
+
+- "Turn this local video into a 45-second Korean short with Typecast narration"
+- "Make a vertical reel from this image and my script"
+- "Create a captioned Typecast short from media I own"
 
 </details>
 

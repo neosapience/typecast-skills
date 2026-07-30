@@ -1,9 +1,9 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "typecast-skills",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "metadata": {
-    "description": "Typecast TTS API integration skills and tools for Claude Code. Covers the API expert agent, code samples, troubleshooting, streaming TTS, timestamp-aligned captions (SRT/VTT), runtime subscription lookup, target_lufs loudness normalization, Quick Voice Cloning, and the official cast CLI."
+    "description": "Typecast TTS API integration skills and tools for Claude Code. Covers API integration and rights-cleared short-form video creation with Typecast narration and captions."
   },
   "owner": {
     "name": "Typecast",
@@ -38,6 +38,30 @@
         "quick-cloning",
         "voice-cloning",
         "cast-cli"
+      ],
+      "homepage": "https://typecast.ai/developers/api",
+      "repository": "https://github.com/neosapience/typecast-skills",
+      "license": "MIT"
+    },
+    {
+      "name": "create-typecast-shorts",
+      "description": "Create a captioned 9:16 short or reel from one rights-cleared local video or image using Typecast narration, cast captions, and ffmpeg.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Typecast",
+        "email": "help@typecast.ai"
+      },
+      "source": "./create-typecast-shorts",
+      "category": "creative",
+      "keywords": [
+        "typecast",
+        "tts",
+        "shorts",
+        "reels",
+        "vertical-video",
+        "captions",
+        "srt",
+        "ffmpeg"
       ],
       "homepage": "https://typecast.ai/developers/api",
       "repository": "https://github.com/neosapience/typecast-skills",

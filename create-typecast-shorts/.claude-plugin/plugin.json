@@ -1,0 +1,22 @@
+{
+  "name": "create-typecast-shorts",
+  "description": "Create a captioned 9:16 short or reel from one rights-cleared local video or image using Typecast narration, cast captions, and ffmpeg.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Typecast",
+    "email": "help@typecast.ai"
+  },
+  "homepage": "https://typecast.ai/developers/api",
+  "repository": "https://github.com/neosapience/typecast-skills",
+  "license": "MIT",
+  "keywords": [
+    "typecast",
+    "tts",
+    "shorts",
+    "reels",
+    "vertical-video",
+    "captions",
+    "srt",
+    "ffmpeg"
+  ]
+}
