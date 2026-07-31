@@ -9,9 +9,9 @@
 | 402 | Payment Required | Insufficient credits | Upgrade plan or add payment |
 | 403 | Forbidden | No permission or dormant account | See detailed checklist below |
 | 404 | Not Found | voice_id does not exist | Check valid voice list with /v2/voices |
-| 422 | Validation Error | Parameter value out of range | Check ranges: emotion_intensity (0-2), volume (0-200), tempo (0.5-2) |
+| 422 | Validation Error | Parameter value out of range or text cannot be synthesized | Check parameter ranges. For `TEXT_NOT_SYNTHESIZABLE`, correct the text before retrying |
 | 429 | Too Many Requests | Concurrent request limit exceeded | Check plan limits (Free:2, Lite:5, Plus:15) |
-| 500 | Internal Server Error | Server error | Retry later, contact support if problem persists |
+| 500 | Internal Server Error | Unexpected server error | Retry later, contact support if problem persists |
 
 ---
 
@@ -134,6 +134,19 @@ print([v["voice_id"] for v in voices])  # Print available voice IDs
 ---
 
 ## 422 Validation Error
+
+### Text Cannot Be Synthesized
+
+Unsupported character or symbol sequences and language mismatches return:
+
+```json
+{
+  "error_code": "TEXT_NOT_SYNTHESIZABLE",
+  "message": "The input text contains characters or symbols that cannot be synthesized into speech. Please check your input text."
+}
+```
+
+Do not retry the same text. Correct the input before sending another request. For streaming TTS, the API can return this status only before the streaming response begins; once streaming has started, the HTTP status cannot change.
 
 ### Parameter Ranges
 | Parameter | Valid Range |
