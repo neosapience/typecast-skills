@@ -81,7 +81,8 @@ Copy the skill folder to your preferred location:
 - Code samples (Python, JavaScript, cURL)
 - Streaming TTS, timestamp-aligned captions (SRT/VTT), and runtime subscription lookup
 - `target_lufs` loudness normalization
-- Quick Voice Cloning (`POST /v1/voices/clone`, `DELETE /v1/voices/{voice_id}`)
+- Voice discovery (`GET /v3/voices`, `GET /v3/voices/{voice_id}`) with localized names
+- Custom voices (`POST /v1/custom-voices/instant-clone`, `POST /v1/custom-voices/professional-clone`, `GET/DELETE /v1/custom-voices`)
 - `cast` CLI usage for one-shot generation and `cast captions` subcommand
 - Error troubleshooting and debugging
 - Plan comparison and pricing
@@ -140,7 +141,7 @@ prompt = {
 Create a custom cloned voice from a WAV or MP3 sample, use the returned `uc_...` voice ID for TTS, then delete it when finished.
 
 ```bash
-curl -X POST "https://api.typecast.ai/v1/voices/clone" \
+curl -X POST "https://api.typecast.ai/v1/custom-voices/instant-clone" \
      -H "X-API-KEY: YOUR_API_KEY" \
      -F "name=My Cloned Voice" \
      -F "model=ssfm-v30" \

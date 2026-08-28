@@ -102,8 +102,8 @@ POST /v1/text-to-speech
 
 ### Quick Voice Cloning
 ```text
-POST /v1/voices/clone
-DELETE /v1/voices/{voice_id}
+POST /v1/custom-voices/instant-clone
+DELETE /v1/custom-voices/{voice_id}
 ```
 
 Use Quick Voice Cloning when the user wants to create a custom voice from a short audio sample, use it for TTS, then remove it when finished.
@@ -119,9 +119,11 @@ Use Quick Voice Cloning when the user wants to create a custom voice from a shor
 
 
 **Recommended workflow:**
-1. Clone with `POST /v1/voices/clone` using multipart form data.
+1. Clone with `POST /v1/custom-voices/instant-clone` using multipart form data.
 2. Use the returned `voice_id` with `POST /v1/text-to-speech`.
-3. Delete the cloned voice with `DELETE /v1/voices/{voice_id}`. Only delete IDs that start with `uc_`; built-in voices usually start with `tc_`.
+3. Delete the cloned voice with `DELETE /v1/custom-voices/{voice_id}`. Only delete IDs that start with `uc_`; built-in voices usually start with `tc_`.
+
+For longer training audio, use `POST /v1/custom-voices/professional-clone`; list and inspect custom voices with `GET /v1/custom-voices` and `GET /v1/custom-voices/{voice_id}`.
 
 ### Minimal Python Example
 
@@ -172,7 +174,7 @@ payload = {
 | 401 | Unauthorized | Verify API key, check environment variables |
 | 402 | Payment Required | Upgrade plan or add payment |
 | 403 | Forbidden | ① Migrate from Starter API key ② Activate dormant account |
-| 404 | Not Found | Check valid voice list with /v2/voices |
+| 404 | Not Found | Check valid voice list with /v3/voices |
 | 429 | Too Many Requests | Check plan limits (Free:2, Lite:5, Plus:15) |
 
 ### 403 Error Checklist
