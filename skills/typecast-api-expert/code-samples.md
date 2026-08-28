@@ -205,7 +205,7 @@ api_key = "YOUR_API_KEY"
 
 with open("sample.wav", "rb") as audio_file:
     clone_response = requests.post(
-        "https://api.typecast.ai/v1/voices/clone",
+        "https://api.typecast.ai/v1/custom-voices/instant-clone",
         headers={"X-API-KEY": api_key},
         data={"name": "My Cloned Voice", "model": "ssfm-v30"},
         files={"file": ("sample.wav", audio_file, "audio/wav")},
@@ -235,13 +235,13 @@ if not voice_id.startswith("uc_"):
     raise ValueError(f"Refusing to delete non-cloned voice ID: {voice_id}")
 
 requests.delete(
-    f"https://api.typecast.ai/v1/voices/{voice_id}",
+    f"https://api.typecast.ai/v1/custom-voices/{voice_id}",
     headers={"X-API-KEY": api_key},
 ).raise_for_status()
 ```
 
 ```bash
-curl -X POST "https://api.typecast.ai/v1/voices/clone" \
+curl -X POST "https://api.typecast.ai/v1/custom-voices/instant-clone" \
      -H "X-API-KEY: YOUR_API_KEY" \
      -F "name=My Cloned Voice" \
      -F "model=ssfm-v30" \
@@ -291,15 +291,15 @@ curl -X POST "https://api.typecast.ai/v1/text-to-speech" \
 
 ---
 
-## List Available Voices (V2 API)
+## List Available Voices (V3 API)
 
 ```bash
 # List all ssfm-v30 voices
-curl -X GET "https://api.typecast.ai/v2/voices?model=ssfm-v30" \
+curl -X GET "https://api.typecast.ai/v3/voices?model=ssfm-v30" \
      -H "X-API-KEY: YOUR_API_KEY"
 
 # Filter by gender and age
-curl -X GET "https://api.typecast.ai/v2/voices?model=ssfm-v30&gender=female&age=young_adult" \
+curl -X GET "https://api.typecast.ai/v3/voices?model=ssfm-v30&gender=female&age=young_adult" \
      -H "X-API-KEY: YOUR_API_KEY"
 ```
 

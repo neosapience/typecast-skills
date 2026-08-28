@@ -8,7 +8,7 @@
 | 401 | Unauthorized | API key authentication failed | Verify API key, check environment variables, remove whitespace/special characters |
 | 402 | Payment Required | Insufficient credits | Upgrade plan or add payment |
 | 403 | Forbidden | No permission or dormant account | See detailed checklist below |
-| 404 | Not Found | voice_id does not exist | Check valid voice list with /v2/voices |
+| 404 | Not Found | voice_id does not exist | Check valid voice list with /v3/voices |
 | 422 | Validation Error | Parameter value out of range or text cannot be synthesized | Check parameter ranges. For `TEXT_NOT_SYNTHESIZABLE`, correct the text before retrying |
 | 429 | Too Many Requests | Concurrent request limit exceeded | Check plan limits (Free:2, Lite:5, Plus:15) |
 | 500 | Internal Server Error | Unexpected server error | Retry later, contact support if problem persists |
@@ -119,11 +119,11 @@ with ThreadPoolExecutor(max_workers=2) as executor:  # Match your plan limit
 
 ### Invalid voice_id
 ```python
-# First, get list of valid voices using V2 API
+# First, get list of valid voices using V3 API
 import requests
 
 response = requests.get(
-    "https://api.typecast.ai/v2/voices?model=ssfm-v30",
+    "https://api.typecast.ai/v3/voices?model=ssfm-v30",
     headers={"X-API-KEY": api_key}
 )
 
@@ -192,7 +192,7 @@ For direct API calls, send Clone Voice as `multipart/form-data`, not JSON:
 ```python
 with open("sample.wav", "rb") as audio_file:
     response = requests.post(
-        "https://api.typecast.ai/v1/voices/clone",
+        "https://api.typecast.ai/v1/custom-voices/instant-clone",
         headers={"X-API-KEY": api_key},
         data={"name": "My Cloned Voice", "model": "ssfm-v30"},
         files={"file": ("sample.wav", audio_file, "audio/wav")},
