@@ -107,7 +107,7 @@ POST /v1/text-to-speech
 
 ---
 
-### 2. List Voices (V3 API)
+### 2. List Voices (V3 API - Recommended)
 ```
 GET /v3/voices
 GET /v3/voices?model=ssfm-v30
@@ -124,19 +124,25 @@ GET /v3/voices?model=ssfm-v30&gender=female&age=young_adult
 
 ---
 
+### 3. Deprecated Voice APIs
+
+Use V3 for built-in voice listing and detail lookup. V1/V2 Voice endpoints are deprecated.
+
+---
+
 ### 4. Get Specific Voice
 ```
 GET /v3/voices/{voice_id}
 ```
 
-Returns detailed information about a specific voice. `voice_name` is localized, with ISO 639-3 keys such as `eng` and `kor`.
+Returns detailed information about a specific voice.
 
 ---
 
 ### 5. Quick Voice Cloning
 ```text
-POST /v1/custom-voices/instant-clone
-DELETE /v1/custom-voices/{voice_id}
+POST /v1/voices/clone
+DELETE /v1/voices/{voice_id}
 ```
 
 Quick Voice Cloning creates a custom cloned voice from a WAV or MP3 audio sample.
@@ -157,21 +163,11 @@ Use the returned cloned voice ID with TTS endpoints, then delete it when no long
 #### Delete Cloned Voice
 
 ```http
-DELETE /v1/custom-voices/{voice_id}
+DELETE /v1/voices/{voice_id}
 ```
 
 - Only delete cloned custom voice IDs that start with `uc_`.
 - Do not pass built-in Typecast voice IDs that start with `tc_`.
-
-#### Other Custom Voice Endpoints
-
-```text
-POST /v1/custom-voices/professional-clone
-GET /v1/custom-voices
-GET /v1/custom-voices/{voice_id}
-```
-
-Use professional cloning for a longer training recording. Its request requires `name`, `files`, `model`, and ISO 639-3 `language`; completed custom voices are also returned by the V3 voice list.
 
 ---
 
