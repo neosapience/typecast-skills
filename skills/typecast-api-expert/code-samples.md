@@ -247,7 +247,7 @@ curl -X POST "https://api.typecast.ai/v1/custom-voices/instant-clone" \
      -F "model=ssfm-v30" \
      -F "file=@sample.wav;type=audio/wav"
 
-curl -X DELETE "https://api.typecast.ai/v1/voices/uc_YOUR_CLONED_VOICE_ID" \
+curl -X DELETE "https://api.typecast.ai/v1/custom-voices/uc_YOUR_CLONED_VOICE_ID" \
      -H "X-API-KEY: YOUR_API_KEY"
 ```
 
