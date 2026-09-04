@@ -140,13 +140,15 @@ Returns detailed information about a specific voice.
 
 ---
 
-### 5. Quick Voice Cloning
+### 5. Custom Voice Cloning
 ```text
-POST /v1/voices/clone
-DELETE /v1/voices/{voice_id}
+POST /v1/custom-voices/instant-clone
+POST /v1/custom-voices/professional-clone
+GET /v1/custom-voices
+DELETE /v1/custom-voices/{voice_id}
 ```
 
-Quick Voice Cloning creates a custom cloned voice from a WAV or MP3 audio sample.
+Instant Voice Cloning creates a custom cloned voice from a WAV or MP3 audio sample.
 Use the returned cloned voice ID with TTS endpoints, then delete it when no longer needed.
 
 #### Clone Voice
@@ -164,7 +166,7 @@ Use the returned cloned voice ID with TTS endpoints, then delete it when no long
 #### Delete Cloned Voice
 
 ```http
-DELETE /v1/voices/{voice_id}
+DELETE /v1/custom-voices/{voice_id}
 ```
 
 - Only delete cloned custom voice IDs that start with `uc_`.
