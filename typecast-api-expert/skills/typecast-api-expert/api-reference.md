@@ -224,7 +224,7 @@ Returns the audio (base64-encoded) plus word- and character-level alignment so c
 }
 ```
 
-The official typecast-python and typecast-js SDKs ship `to_srt()` / `to_vtt()` helpers that turn the alignment into subtitle files using a shared rule (sentence boundary + 7.0s / 42-char limit per cue). The same rule is implemented byte-for-byte across all 11 SDKs and the `cast captions` CLI subcommand.
+The official typecast-python and typecast-js SDKs ship `to_srt()` / `to_vtt()` helpers that turn the alignment into subtitle files using a shared rule (sentence boundary + 7.0s / 42-char limit per cue). The same rule is implemented byte-for-byte across all 11 SDKs and the `cast` CLI's timestamp output.
 
 ---
 

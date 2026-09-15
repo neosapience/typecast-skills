@@ -569,19 +569,19 @@ cast voices random --gender female --model ssfm-v30
 ### Captions (SRT / WebVTT)
 
 ```bash
-cast captions "Hello, world. This is a test." \
-  --format srt \
-  --captions-out hello.srt \
-  --audio-out hello.wav
+cast "Hello, world. This is a test." \
+  --timestamp-format srt \
+  --timestamp-out hello.srt \
+  --out hello.wav
 
 # Non-whitespace languages — auto-fallback to character granularity
-cast captions "こんにちは。世界。" \
+cast "こんにちは。世界。" \
   --language jpn \
-  --format vtt \
-  --captions-out hello.vtt
+  --timestamp-format vtt \
+  --timestamp-out hello.vtt
 ```
 
-> Streaming, subscription, and `--target-lufs` are queued in cast as separate PRs; check `cast --help` against the latest release before recommending those flags.
+> Cast v1.0.9 supports `--stream`, `cast subscription`, and `--target-lufs`. Check `cast --help` and `cast subscription --help` for the installed version. Timestamp output uses the non-streaming timestamps endpoint.
 
 ---
 
