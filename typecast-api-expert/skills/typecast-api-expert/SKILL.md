@@ -194,7 +194,7 @@ with httpx.stream(
 
 ### Captions (Timestamps → SRT / WebVTT)
 
-`POST /v1/text-to-speech/with-timestamps` returns the audio (base64-encoded) alongside word- and character-level alignment. The official `typecast-python` and `typecast-js` SDKs ship `to_srt()` / `to_vtt()` helpers that turn the alignment into subtitle files in one line. The same caption rule (sentence boundary + 7.0s / 42-char limit per cue) is implemented byte-for-byte across all 11 SDKs and the `cast` CLI's `cast captions` subcommand.
+`POST /v1/text-to-speech/with-timestamps` returns the audio (base64-encoded) alongside word- and character-level alignment. The official `typecast-python` and `typecast-js` SDKs ship `to_srt()` / `to_vtt()` helpers that turn the alignment into subtitle files in one line. The same caption rule (sentence boundary + 7.0s / 42-char limit per cue) is implemented byte-for-byte across all 11 SDKs and the `cast` CLI's timestamp output.
 
 For non-whitespace languages (`jpn`, `zho`), pass `granularity=char` or `both`. With `word` on those languages the server collapses the entire sentence into a single word segment.
 
@@ -273,23 +273,23 @@ cast voices list --use-case Audiobook
 
 ### Generate captions (SRT / WebVTT)
 
-`cast captions` calls `POST /v1/text-to-speech/with-timestamps` and produces subtitle files using the same caption rule as the SDKs (sentence boundary + 7s / 42-char limit per cue).
+`cast --timestamp-out` calls `POST /v1/text-to-speech/with-timestamps` and produces subtitle files using the same caption rule as the SDKs (sentence boundary + 7s / 42-char limit per cue).
 
 ```bash
-cast captions "Hello, world. This is a test." \
-  --format srt \
-  --captions-out hello.srt \
-  --audio-out hello.wav
+cast "Hello, world. This is a test." \
+  --timestamp-format srt \
+  --timestamp-out hello.srt \
+  --out hello.wav
 ```
 
-For non-whitespace languages (`jpn`, `zho`), pass `--language jpn` and cast auto-falls-back to character granularity. Override explicitly with `--granularity char|word|both` if needed.
+For non-whitespace languages (`jpn`, `zho`), pass `--language jpn` and cast auto-falls-back to character granularity. Override explicitly with `--timestamp-granularity char`, `word`, or `both` if needed.
 
 ### When to recommend `cast` vs an SDK
 
 - **cast (CLI)**: shell pipelines, CI batch jobs, `cast voices pick` for human-in-the-loop voice selection, quick one-shot generation. No code required.
 - **SDK** (Python / JavaScript / Go / Rust / Swift / C# / Java / Kotlin / C / Zig / PHP — 11 languages): app integration, custom error handling, streaming consumption, batch automation with retries, packaging into a service. See [code-samples.md](code-samples.md) for SDK examples.
 
-> Streaming, subscription lookup, and `--target-lufs` are queued in cast as separate PRs and may not be on `cast --help` yet — confirm against the cast README before recommending those flags.
+> Cast v1.0.9 supports `--stream`, `cast subscription`, and `--target-lufs`. Check `cast --help` and `cast subscription --help` for the installed version. Timestamp output uses the non-streaming timestamps endpoint.
 
 ---
 

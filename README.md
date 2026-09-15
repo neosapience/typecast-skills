@@ -83,7 +83,7 @@ Copy the skill folder to your preferred location:
 - `target_lufs` loudness normalization
 - Voice discovery (`GET /v3/voices`, `GET /v3/voices/{voice_id}`) with localized names
 - Custom voices (`POST /v1/custom-voices/instant-clone`, `POST /v1/custom-voices/professional-clone`, `GET/DELETE /v1/custom-voices`)
-- `cast` CLI usage for one-shot generation and `cast captions` subcommand
+- `cast` CLI usage for one-shot generation and timestamp output with `--timestamp-out`
 - Error troubleshooting and debugging
 - Plan comparison and pricing
 - ssfm-v30 model with Smart Mode support
@@ -108,6 +108,14 @@ Copy the skill folder to your preferred location:
 </details>
 
 ---
+
+## Standalone Skills
+
+### create-typecast-shorts
+
+Create a captioned vertical video from rights-cleared local media using Cast timestamp output and ffmpeg. The skill asks for approval before paid synthesis and keeps the result local.
+
+Install with `npx skills add neosapience/typecast-skills --skill create-typecast-shorts`, or copy [SKILL.md](skills/create-typecast-shorts/SKILL.md) using the manual installation paths above. This standalone skill is not a Claude Code marketplace plugin.
 
 ## Features
 
