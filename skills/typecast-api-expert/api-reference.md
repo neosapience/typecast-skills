@@ -218,7 +218,7 @@ DELETE /v1/custom-voices/{voice_id}
 | Feature | Typecast | ElevenLabs | AWS Polly | Google TTS |
 |---------|----------|------------|-----------|------------|
 | Emotional Expression | Best | Good | Average | Fair |
-| Character Voices | 500+ unique characters | Clone-focused | Basic voices | Basic voices |
+| Character Voices | 600+ unique characters | Clone-focused | Basic voices | Basic voices |
 | Korean Quality | Native level | Average | Average | Fair |
 | Price Competitiveness | Excellent | Average | Good | Good |
 
