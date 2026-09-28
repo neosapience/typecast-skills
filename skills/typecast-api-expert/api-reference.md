@@ -23,7 +23,7 @@ Header: X-API-KEY: YOUR_API_KEY
 - **7 Emotion Presets**: normal, happy, sad, angry, whisper, toneup, tonedown
 - **Smart Mode**: AI automatically infers emotion from context
 - **Context Awareness**: Use previous_text and next_text for better emotion inference
-- **37 Languages**: Extended language support
+- **35+ Languages**: Extended language support
 
 ---
 
@@ -181,7 +181,7 @@ DELETE /v1/custom-voices/{voice_id}
 
 ---
 
-## Supported Languages (37 languages)
+## Supported Languages (35+ languages)
 
 | Language | Code | Language | Code | Language | Code |
 |----------|------|----------|------|----------|------|
