@@ -290,7 +290,7 @@ prompt = {
 ### Q: What's the difference between ssfm-v21 and ssfm-v30?
 **A:**
 - **ssfm-v21**: 4 emotion presets (normal, happy, sad, angry)
-- **ssfm-v30**: 7 emotion presets + Smart Mode (context-aware emotion), 37 languages
+- **ssfm-v30**: 7 emotion presets + Smart Mode (context-aware emotion), 35+ languages
 
 ### Q: How do I use Smart Mode?
 **A:** Set `emotion_type: "smart"` and optionally provide `previous_text` and `next_text` for context. The AI will infer the appropriate emotion.

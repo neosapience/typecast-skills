@@ -27,8 +27,8 @@ This marketplace provides Claude Code plugins for seamless integration with [Typ
 | Feature          | Description                                                                |
 | ---------------- | -------------------------------------------------------------------------- |
 | **Emotion AI**   | 7 emotion presets + Smart Mode for context-aware expression                |
-| **500+ Voices**  | Unique character voices across ages, genders, and styles                   |
-| **37 Languages** | Global language support including Korean, English, Japanese                |
+| **600+ Voices**  | Unique character voices across ages, genders, and styles                   |
+| **35+ Languages** | Global language support including Korean, English, Japanese                |
 | **Low Latency**  | Streaming TTS endpoint for real-time playback                              |
 | **Captions**     | Timestamp-aligned SRT/VTT output with shared rule across 11 SDKs + cast CLI |
 | **Loudness**     | `target_lufs` for absolute loudness normalization (e.g. -14 LUFS)          |
