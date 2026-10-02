@@ -67,6 +67,8 @@ brew install neosapience/tap/cast
 go install github.com/neosapience/cast@latest
 ```
 
+The tempo/silence example below requires Cast v1.0.10 or later. Check `cast --help` for `--remove-silence-ms`; if unavailable, update Cast before synthesis instead of omitting the option.
+
 Authenticate with `cast login` so the key is entered in its own prompt. Never ask the user to paste the key into chat.
 
 ### 3. Create a clean work directory
@@ -107,12 +109,14 @@ If no voice ID was provided, run:
 cast voices pick
 ```
 
-After approval, generate narration and SRT together:
+After approval, generate narration and SRT together. This example uses a slightly faster short-form pace (`--tempo 1.1`) and keeps up to 300 ms of each detected silence (`--remove-silence-ms 300`); choose tempo to match the user’s request (the normal default is `1.0`).
 
 ```bash
 cast "$(cat script-tts.txt)" \
   --voice-id VOICE_ID \
   --language LANGUAGE_CODE \
+  --tempo 1.1 \
+  --remove-silence-ms 300 \
   --format wav \
   --out narration.wav \
   --timestamp-out captions.srt \
@@ -120,6 +124,8 @@ cast "$(cat script-tts.txt)" \
 ```
 
 Use ISO 639-3 language codes such as `kor`, `eng`, or `jpn`. For Japanese or Chinese, cast automatically selects character-level alignment; use the latest cast release if that behavior is unavailable.
+
+`--remove-silence-ms` is the silence duration to keep, not the amount to subtract: use an integer from `0` to `1000`; `0` removes detected silence and omission disables duration-based removal. Generate the audio and captions in the same request. Returned timestamps already match the tempo-adjusted, silence-processed audio; do not subtract silence durations from them or run ffmpeg silence removal/tempo changes on narration afterward, as that invalidates caption timing.
 
 Do not fall back to Whisper merely to create timestamps. Typecast captions already returns aligned audio and subtitles without another model or dependency.
 
