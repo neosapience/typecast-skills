@@ -1,7 +1,7 @@
 {
   "name": "typecast-api-expert",
   "description": "Typecast TTS API expert agent. Covers API key setup, code samples, troubleshooting, plan comparison, and the newer surface area: streaming TTS, timestamp-aligned captions (SRT/VTT), runtime subscription lookup, target_lufs loudness normalization, Quick Voice Cloning, and the cast CLI.",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": {
     "name": "Typecast",
     "email": "help@typecast.ai"
