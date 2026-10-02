@@ -50,7 +50,6 @@ POST /v1/text-to-speech
 | `output.audio_tempo` | number | 1.0 | 0.5 ~ 2.0 |
 | `output.audio_format` | string | "wav" | "wav" or "mp3" |
 | `output.target_lufs` | number | null | Absolute loudness normalization target in LUFS, range `-70.0 ~ 0.0` (e.g. `-14.0`). Mutually exclusive with `output.volume` on the non-streaming endpoint; not accepted by the streaming endpoint at all. |
-| `seed` | integer | - | Seed value for reproducible results |
 
 **Prompt Parameters for ssfm-v21:**
 | Parameter | Type | Default | Description |
