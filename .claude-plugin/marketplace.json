@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "typecast-skills",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "metadata": {
     "description": "Typecast TTS API integration skills and tools for Claude Code. Covers the API expert agent, code samples, troubleshooting, streaming TTS, timestamp-aligned captions (SRT/VTT), runtime subscription lookup, target_lufs loudness normalization, Quick Voice Cloning, and the official cast CLI."
   },
@@ -13,7 +13,7 @@
     {
       "name": "typecast-api-expert",
       "description": "Typecast TTS API expert agent. Covers API key setup, code samples, troubleshooting, plan comparison, and the newer surface area: streaming TTS, timestamp-aligned captions (SRT/VTT), runtime subscription lookup, target_lufs loudness normalization, Quick Voice Cloning, and the cast CLI. Use for 'Typecast API', 'TTS integration', 'streaming TTS', 'voice cloning', 'TTS captions', 'cast CLI', or 'text-to-speech API' questions.",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "author": {
         "name": "Typecast",
         "email": "help@typecast.ai"
