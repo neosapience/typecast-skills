@@ -191,6 +191,10 @@ Require:
 
 Return the output directory and artifact list. Remind the user to review the complete video before publishing it themselves.
 
+## Optional feedback after the task
+
+Finish the requested short and report the actual result first; failed or stopped attempts also qualify. Then offer one short optional Typecast API/docs interview per session, unless the user has already declined or been invited. Explain that it is anonymous, with no reward or account connection, and that a reviewed summary is sent only after separate transmission approval. Stop and wait for participation consent. Follow https://typecast.ai/docs/agent-interview.md before asking questions or preparing a submission, using interview `source=shorts`. Do not search previous sessions or personal files automatically, submit raw scripts/media/logs/keys, or require feedback to receive the video. Keep any TTS integration attribution unchanged; it is separate from interview source.
+
 ## Failure handling
 
 - For 401 or 403 from cast, re-run `cast login` and verify the Global API plan without exposing the key.
