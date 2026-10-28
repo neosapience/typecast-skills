@@ -254,7 +254,8 @@ if not api_key:
 
 Use preset/smart prompts and select a voice with the same V3 model filter. Check
 the returned emotions instead of copying another model's supported values. For
-SSFM 3.1, Python SDK requests require `typecast-python>=0.5.3`.
+SSFM 3.1, use Direct API requests with `model="ssfm-v31"`; the published Python
+SDK 0.5.2 supports v21/v30 only.
 
 **Solution:**
 ```python
