@@ -18,6 +18,14 @@
 
 ---
 
+## SSFM 3.1 model selection
+
+Set the TTS model to `ssfm-v31` explicitly and choose a compatible voice using
+`GET /v3/voices?model=ssfm-v31`. Check the selected voice's `models` and supported
+emotions. Existing defaults are unchanged; do not infer language or cloning
+support from another model.
+
+
 ## Overview
 
 This marketplace provides Claude Code plugins for seamless integration with [Typecast TTS API](https://typecast.ai/developers/api). Convert text to natural, expressive speech with industry-leading emotional AI voices.
@@ -86,7 +94,7 @@ Copy the skill folder to your preferred location:
 - `cast` CLI usage for one-shot generation and timestamp output with `--timestamp-out`
 - Error troubleshooting and debugging
 - Plan comparison and pricing
-- ssfm-v30 model with Smart Mode support
+- ssfm-v30 and ssfm-v31 selection with Smart Mode support
 
 </details>
 
@@ -125,6 +133,7 @@ Install with `npx skills add neosapience/typecast-skills --skill create-typecast
 | -------- | --------- | ---------- | --------- |
 | ssfm-v21 | 4 presets | ❌         | 30        |
 | ssfm-v30 | 7 presets | ✅         | 37        |
+| ssfm-v31 | Voice-dependent presets | ✅ | Check the selected voice |
 
 ### Emotion Presets (ssfm-v30)
 
