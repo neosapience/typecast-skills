@@ -84,7 +84,8 @@ Header: X-API-KEY: YOUR_API_KEY
 
 Select a model explicitly and use V3 voices with the same model filter to choose
 compatible voices and emotions. SSFM 3.1 uses `ssfm-v31` with preset/smart prompts;
-Python SDK examples require `typecast-python>=0.5.3`.
+use Direct API examples for v31. PyPI SDK 0.5.2 supports only v21/v30, and
+no v31-compatible SDK release is available yet.
 ```
 POST /v1/text-to-speech
 ```

@@ -2,9 +2,11 @@
 
 ## Python (Using SDK) - Recommended
 
-For SSFM 3.1, use `typecast-python>=0.5.3` and set `model="ssfm-v31"` in the
-preset/smart examples below. Choose a compatible voice with the same V3 model
-filter and its supported emotions; the existing v30 examples remain unchanged.
+The SDK examples below use `ssfm-v30`. For SSFM 3.1, use the Direct API
+examples with `model="ssfm-v31"` and a compatible voice from
+`GET /v3/voices?model=ssfm-v31`. Check the voice's supported emotions.
+PyPI SDK 0.5.2 does not support `ssfm-v31`; no supporting SDK release is
+available yet.
 
 ```bash
 pip install typecast-python
