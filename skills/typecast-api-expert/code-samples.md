@@ -1,16 +1,10 @@
 # Typecast API Code Samples
 
-## SSFM 3.1
-
-Use the exact model value `ssfm-v31` for SSFM 3.1. Discover compatible voices with
-`GET /v3/voices?model=ssfm-v31`, then check the selected voice's `models` and
-emotions. Use preset/smart prompts as with SSFM 3.0, without assuming identical
-languages, emotions, or cloning support. The API requires an explicit model;
-existing examples using v21/v30 remain valid. SDK examples require a release
-that supports v31 (Python: `typecast-python>=0.5.3`).
-
-
 ## Python (Using SDK) - Recommended
+
+For SSFM 3.1, use `typecast-python>=0.5.3` and set `model="ssfm-v31"` in the
+preset/smart examples below. Choose a compatible voice with the same V3 model
+filter and its supported emotions; the existing v30 examples remain unchanged.
 
 ```bash
 pip install typecast-python

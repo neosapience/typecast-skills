@@ -1,15 +1,5 @@
 # Typecast API Reference
 
-## SSFM 3.1
-
-Use the exact model value `ssfm-v31` for SSFM 3.1. Discover compatible voices with
-`GET /v3/voices?model=ssfm-v31`, then check the selected voice's `models` and
-emotions. Use preset/smart prompts as with SSFM 3.0, without assuming identical
-languages, emotions, or cloning support. The API requires an explicit model;
-existing examples using v21/v30 remain valid. SDK examples require a release
-that supports v31 (Python: `typecast-python>=0.5.3`).
-
-
 ## Base URL
 ```
 https://api.typecast.ai
@@ -24,11 +14,15 @@ Header: X-API-KEY: YOUR_API_KEY
 
 ## Available Models
 
+The API requires an explicit model. Use `GET /v3/voices?model=ssfm-v31` to find
+compatible SSFM 3.1 voices and check each voice's supported emotions. Preset/smart
+prompts are shared by v30/v31; language and cloning capabilities are model-specific.
+
 | Model | Description | Emotion Control |
 |-------|-------------|-----------------|
 | ssfm-v21 | Stable production model | Preset only (normal, happy, sad, angry) |
 | ssfm-v30 | SSFM 3.0 | Preset (7 emotions) + Smart (context-aware) |
-| ssfm-v31 | SSFM 3.1, selected explicitly | Preset + Smart; check the selected voice's emotions |
+| ssfm-v31 | SSFM 3.1 | Preset + Smart; check voice support |
 
 ### ssfm-v30 Features
 - **7 Emotion Presets**: normal, happy, sad, angry, whisper, toneup, tonedown

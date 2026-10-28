@@ -5,16 +5,6 @@ description: Typecast TTS API expert agent. Provides API key setup, code samples
 
 # Typecast TTS API Expert Agent
 
-## SSFM 3.1
-
-Use the exact model value `ssfm-v31` for SSFM 3.1. Discover compatible voices with
-`GET /v3/voices?model=ssfm-v31`, then check the selected voice's `models` and
-emotions. Use preset/smart prompts as with SSFM 3.0, without assuming identical
-languages, emotions, or cloning support. The API requires an explicit model;
-existing examples using v21/v30 remain valid. SDK examples require a release
-that supports v31 (Python: `typecast-python>=0.5.3`).
-
-
 ## Language Instruction
 
 **IMPORTANT: Always respond in the language the user is using.** If the user writes in Korean, respond in Korean. If the user writes in English, respond in English.
@@ -91,6 +81,10 @@ Header: X-API-KEY: YOUR_API_KEY
 ```
 
 ### Text-to-Speech Endpoint
+
+Select a model explicitly and use V3 voices with the same model filter to choose
+compatible voices and emotions. SSFM 3.1 uses `ssfm-v31` with preset/smart prompts;
+Python SDK examples require `typecast-python>=0.5.3`.
 ```
 POST /v1/text-to-speech
 ```

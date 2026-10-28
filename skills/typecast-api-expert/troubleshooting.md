@@ -1,15 +1,5 @@
 # Typecast API Troubleshooting Guide
 
-## SSFM 3.1
-
-Use the exact model value `ssfm-v31` for SSFM 3.1. Discover compatible voices with
-`GET /v3/voices?model=ssfm-v31`, then check the selected voice's `models` and
-emotions. Use preset/smart prompts as with SSFM 3.0, without assuming identical
-languages, emotions, or cloning support. The API requires an explicit model;
-existing examples using v21/v30 remain valid. SDK examples require a release
-that supports v31 (Python: `typecast-python>=0.5.3`).
-
-
 ## Error Codes Reference
 
 | Code | Description | Cause | Solution |
@@ -259,8 +249,12 @@ if not api_key:
     raise EnvironmentError("TYPECAST_API_KEY environment variable not set")
 ```
 
-### Issue: emotion_type validation error (ssfm-v30)
-**Cause:** Using ssfm-v21 prompt format with ssfm-v30.
+### Issue: emotion_type validation error (ssfm-v30/ssfm-v31)
+**Cause:** Using ssfm-v21 prompt format with ssfm-v30 or ssfm-v31.
+
+Use preset/smart prompts and select a voice with the same V3 model filter. Check
+the returned emotions instead of copying another model's supported values. For
+SSFM 3.1, Python SDK requests require `typecast-python>=0.5.3`.
 
 **Solution:**
 ```python
