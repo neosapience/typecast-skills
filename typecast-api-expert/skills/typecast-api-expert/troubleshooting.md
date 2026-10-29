@@ -249,8 +249,13 @@ if not api_key:
     raise EnvironmentError("TYPECAST_API_KEY environment variable not set")
 ```
 
-### Issue: emotion_type validation error (ssfm-v30)
-**Cause:** Using ssfm-v21 prompt format with ssfm-v30.
+### Issue: emotion_type validation error (ssfm-v30/ssfm-v31)
+**Cause:** Using ssfm-v21 prompt format with ssfm-v30 or ssfm-v31.
+
+Use preset/smart prompts and select a voice with the same V3 model filter. Check
+the returned emotions instead of copying another model's supported values. For
+SSFM 3.1, use Direct API requests with `model="ssfm-v31"`; the published Python
+SDK 0.5.2 supports v21/v30 only.
 
 **Solution:**
 ```python
